@@ -13,8 +13,7 @@ import {
 } from "@heroicons/react/solid";
 import { debounce } from "lodash";
 import { useSession } from "next-auth/react";
-import { useCallback, useState } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useCallback, useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { currentTrackIdState, isPlayingState } from "../atoms/songAtom";
 import useSongInfo from "../hooks/useSongInfo";
@@ -53,7 +52,7 @@ function Player() {
 
   const handlePlayPause = () => {
     spotifyApi.getMyCurrentPlaybackState().then((data) => {
-      if (data.body.is_playing) {
+      if (data?.body?.is_playing) {
         spotifyApi.pause();
         setIsPlaying(false);
       } else {
